@@ -13,8 +13,8 @@ export default function init(canvas) {
     var pi = Math.PI;
 
     var scene = new THREE.Scene();
-    var h = window.innerHeight,
-    w = window.innerWidth;
+    var h = canvas.height,
+    w = canvas.width;
     var aspectRatio = w / h,
     fieldOfView = 45,
     nearPlane = 1,

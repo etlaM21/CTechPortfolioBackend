@@ -18,7 +18,7 @@ const ThreeSceneLoader = ({ threeScene }) => {
         };
     }, [threeScene]);
 
-    return <canvas ref={canvasRef} width={"500"} height={"500"} />
+    return <div className="threeScene"><canvas ref={canvasRef} width={document.getElementsByClassName("project")[0].clientWidth - 4} height={"596"} /></div>
 };
 
 export default ThreeSceneLoader;

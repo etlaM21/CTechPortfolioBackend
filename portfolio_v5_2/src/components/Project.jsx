@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import data from "../_data/projects.json";
 // const P5SketchLoader = dynamic(() => import('./loader/P5SketchLoader'), { ssr: false });
 import P5SketchLoader from "../loader/P5SketchLoader.jsx";
-// import ThreeSceneLoader from "./loader/ThreeSceneLoader";
+import ThreeSceneLoader from "../loader/ThreeSceneLoader.jsx";
 
 const Project = () => {
     const params = useParams();
@@ -26,14 +26,14 @@ const Project = () => {
                     console.error('Error loading sketch:', error);
                 });
         }
-        // if (data.projects[projectID]?.three) {
-        //     const scenePath = data.projects[projectID].three;
-        //     import(`../_data/three/${scenePath}`)
-        //         .then((module) => {
-        //             setMyScene(() => module.default);
-        //         })
-        //         .catch((error) => console.error('Error loading scene:', error));
-        // }
+        if (data.projects[projectID]?.three) {
+            const scenePath = data.projects[projectID].three;
+            import(`../_data/three/${scenePath}`)
+            .then((module) => {
+                setMyScene(() => module.default);
+            })
+            .catch((error) => console.error('Error loading scene:', error));
+        }
     }, [projectID]);
 
     
@@ -46,8 +46,8 @@ const Project = () => {
                 <h1>{data.projects[projectID].title}</h1>
                 <p>{data.projects[projectID].content}</p>
 
-                <p>{mySketch && <P5SketchLoader sketch={mySketch} />}</p>
-                {/* {myScene && <ThreeSceneLoader threeScene={myScene} />} */}
+                {mySketch && <P5SketchLoader sketch={mySketch} />}
+                {myScene && <ThreeSceneLoader threeScene={myScene} />}
             </div>
         </main>
     );

@@ -1,6 +1,6 @@
 export default function sketch(p) {
     p.setup = () => {
-      p.createCanvas(400, 400);
+      p.createCanvas(document.getElementsByClassName("p5Sketch")[0].scrollWidth - 2, 596);
     };
   
     p.draw = () => {

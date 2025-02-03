@@ -16,7 +16,7 @@ export default function sketch(p) {
     const cloudEvolutionSpeed = 4;
 
     p.setup = () => {
-        p.createCanvas(400, 400);
+        p.createCanvas(document.getElementsByClassName("p5Sketch")[0].scrollWidth - 2, 596);
         // Provide description of this sketch for screen readers.
 	    p.describe('2D clouds made of white text float slowly across a blue sky. The shape of the clouds is changing subtly over time.');
     };
