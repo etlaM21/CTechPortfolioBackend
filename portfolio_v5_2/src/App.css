@@ -1,12 +1,16 @@
 :root {
     --background: #ffffff;
     --foreground: #171717;
+    --background_half: #c1c1c1;
+    --foreground_half: #505050;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         --background: #0a0a0a;
         --foreground: #ededed;
+        --background_half: #505050;
+        --foreground_half: #c1c1c1;
     }
 }
 
@@ -43,12 +47,22 @@ a {
 
 
 .header {
+    text-align: center;
     width: 100%;
     border-bottom: solid 2.5px;
     border-image-slice: 1;
     /* border-image-source: linear-gradient(90deg, rgba(2, 0, 36, 0) 0%, rgba(31, 110, 181, 1) 26%, rgba(156, 134, 62, 1) 50%, rgba(105, 9, 121, 1) 66%, rgba(2, 0, 36, 0) 100%); */
     margin-bottom: 0.5rem;
     /* background: radial-gradient(circle, rgba(156, 134, 62, 0.09845945214023111) 0%, rgba(105, 9, 121, 0.32815132889093135) 25%, rgba(2, 0, 36, 0) 100%); */
+    h1 {
+        margin-top: 1rem;
+        display: inline-block;
+        font-size: 1.5rem;
+        color: var(--background);
+        background-color: var(--foreground);
+        padding: 0.5rem;
+        border-radius: 5px;
+    }
 }
 
 nav {
@@ -57,6 +71,7 @@ nav {
     max-width: 1280px;
     padding-top: 1rem;
     padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
     text-align: center;
 
     h1,
@@ -73,11 +88,25 @@ nav {
 
     ul {
         list-style-type: none;
+        margin: 0;
     }
 
     ul li {
         font-size: 1rem;
         cursor: pointer;
+        font-weight: bold;
+        color: var(--background);
+        background-color: var(--foreground_half);
+        padding: 0.5rem;
+        border-radius: 5px;
+        transition: background-color 0.2s ease-in-out;
+        &:hover {
+            background-color: var(--foreground);
+        }
+    }
+
+    ul li:last-of-type  {
+        margin: 0;
     }
 }
 
@@ -87,21 +116,38 @@ main {
     margin: 0 auto;
 }
 
-.p5Sketch {
+.p5Sketch, .threeScene {
     border-style: solid;
     border-width: 2px;
     border-color: var(--foreground);
     margin: 10px;
-    /* width: 100%; */
-    /* height: 100%; */
+    width: 100%;
+    height: 600px;
+    border-radius: 15px;
+    margin-bottom: 1rem;
+    canvas {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+    }
 }
 
-.project {
+.project, .about {
     display: block;
     position: relative;
 
     h1 {
         font-size: 2rem;
+    }
+    
+    h3 {
+        margin-top: 1rem;
+        display: inline-block;
+        font-size: 1.5rem;
+        color: var(--background);
+        background-color: var(--foreground);
+        padding: 0.5rem;
+        border-radius: 5px;
     }
 
     h4 {
@@ -110,16 +156,37 @@ main {
         transform: translateY(0.5rem);
         font-weight: normal;
         font-style: italic;
+        margin: 0 0 1rem 1rem;
+        color: var(--background);
+        background-color: var(--foreground);
+        padding: 0.5rem;
+        border-radius: 5px;
+    }
+
+    p {
+        margin-top: 1rem;
     }
 
     img {
-        height: 50vh;
+        height: 33vh;
         width: 100%;
         object-fit: cover;
         float: left;
         margin-right: 0.5rem;
         border-radius: 5px;
+        margin-bottom: 1rem;
     }
+}
+
+.project h1 {
+    position: absolute;
+    top: calc(16.5vh - 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--foreground);
+    background-color: var(--background);
+    padding: 0.5rem;
+    border-radius: 5px;
 }
 
 
