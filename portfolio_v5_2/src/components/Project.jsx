@@ -13,26 +13,35 @@ const Project = () => {
     const [mySketch, setMySketch] = useState(null);
     const [myScene, setMyScene] = useState(null);
 
+    // Use import.meta.glob to predefine the available modules
+    const sketches = import.meta.glob('../_data/p5/*.js');
+    const scenes = import.meta.glob('../_data/three/*.js');
+
     useEffect(() => {
         if (data.projects[projectID]?.p5) {
-            const sketchPath = data.projects[projectID].p5;
-            // console.log(sketchPath);
-            
-            import(`../_data/p5/${sketchPath}`)
-                .then((module) => {
-                    setMySketch(() => module.default);
-                })
-                .catch((error) => {
-                    console.error('Error loading sketch:', error);
-                });
+            const sketchPath = `../_data/p5/${data.projects[projectID].p5}`;
+            const importer = sketches[sketchPath];
+    
+            if (importer) {
+                importer()
+                    .then((module) => setMySketch(() => module.default))
+                    .catch((error) => console.error('Error loading sketch:', error));
+            } else {
+                console.error('Sketch file not found:', sketchPath);
+            }
         }
+    
         if (data.projects[projectID]?.three) {
-            const scenePath = data.projects[projectID].three;
-            import(`../_data/three/${scenePath}`)
-            .then((module) => {
-                setMyScene(() => module.default);
-            })
-            .catch((error) => console.error('Error loading scene:', error));
+            const scenePath = `../_data/three/${data.projects[projectID].three}`;
+            const importer = scenes[scenePath];
+    
+            if (importer) {
+                importer()
+                    .then((module) => setMyScene(() => module.default))
+                    .catch((error) => console.error('Error loading scene:', error));
+            } else {
+                console.error('Scene file not found:', scenePath);
+            }
         }
     }, [projectID]);
 
