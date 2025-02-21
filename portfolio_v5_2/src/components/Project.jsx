@@ -10,6 +10,9 @@ const Project = () => {
     const params = useParams();
     const projectID = Number(params.id);
 
+    const [project, setProject] = useState(null);
+    const [loading, setLoading] = useState(true);
+
     const [mySketch, setMySketch] = useState(null);
     const [myScene, setMyScene] = useState(null);
 
@@ -18,42 +21,67 @@ const Project = () => {
     const scenes = import.meta.glob('../_data/three/*.js');
 
     useEffect(() => {
-        if (data.projects[projectID]?.p5) {
-            const sketchPath = `../_data/p5/${data.projects[projectID].p5}`;
-            const importer = sketches[sketchPath];
-    
-            if (importer) {
-                importer()
-                    .then((module) => setMySketch(() => module.default))
-                    .catch((error) => console.error('Error loading sketch:', error));
-            } else {
-                console.error('Sketch file not found:', sketchPath);
-            }
+      async function fetchProjects() {
+        try {
+            const response = await fetch(`/api/project?id=${projectID}`);
+            const data = await response.json();
+            setProject(data);
+        } catch (error) {
+            console.error("Error fetching projects:", error);
+        } finally {
+            setLoading(false);
         }
-    
-        if (data.projects[projectID]?.three) {
-            const scenePath = `../_data/three/${data.projects[projectID].three}`;
-            const importer = scenes[scenePath];
-    
-            if (importer) {
-                importer()
-                    .then((module) => setMyScene(() => module.default))
-                    .catch((error) => console.error('Error loading scene:', error));
-            } else {
-                console.error('Scene file not found:', scenePath);
-            }
-        }
+      }
+      fetchProjects();
     }, [projectID]);
 
-    
+    useEffect(() => {
+        if(project){
+            console.log("loading p5 for project:", project);
+            if (project.p5) {
+                const sketchPath = `../_data/p5/${project.p5}`;
+                const importer = sketches[sketchPath];
+        
+                if (importer) {
+                    importer()
+                        .then((module) => setMySketch(() => module.default))
+                        .catch((error) => console.error('Error loading sketch:', error));
+                } else {
+                    console.error('Sketch file not found:', sketchPath);
+                }
+            }
+        
+            if (project.three) {
+                const scenePath = `../_data/three/${project.three}`;
+                const importer = scenes[scenePath];
+        
+                if (importer) {
+                    importer()
+                        .then((module) => setMyScene(() => module.default))
+                        .catch((error) => console.error('Error loading scene:', error));
+                } else {
+                    console.error('Scene file not found:', scenePath);
+                }
+            }
+        }
+    }, [project, scenes, sketches]);
+
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (!project) {
+        return <p>Project not found.</p>;
+    }
 
     return (
         <main>
-            <div className="project" key={data.projects[projectID].id}>
-                <img src={data.projects[projectID].img} />
-                <h4>{data.projects[projectID].date}</h4>
-                <h1>{data.projects[projectID].title}</h1>
-                <p>{data.projects[projectID].content}</p>
+            <div className="project" key={project.id}>
+                <img src={project.img} alt={project.title} />
+                <h4>{project.date}</h4>
+                <h1>{project.title}</h1>
+                <p>{project.content}</p>
 
                 {mySketch && <P5SketchLoader sketch={mySketch} />}
                 {myScene && <ThreeSceneLoader threeScene={myScene} />}
