@@ -67,58 +67,60 @@ const UpdateProjectForm = () => {
     if (!project) return <div>Loading...</div>;
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                name="title"
-                placeholder="Title"
-                value={formData.title}
-                onChange={handleChange}
-                required
-            />
-            <textarea
-                name="content"
-                placeholder="Content"
-                value={formData.content}
-                onChange={handleChange}
-                required
-            />
-            <input
-                type="text"
-                name="img"
-                placeholder="Image URL"
-                value={formData.img}
-                onChange={handleChange}
-                required
-            />
-            <input
-                type="text"
-                name="date"
-                placeholder="Date"
-                value={formData.date}
-                onChange={handleChange}
-                required
-            />
-            <input
-                type="text"
-                name="p5"
-                placeholder="P5 Sketch (filename)"
-                value={formData.p5}
-                onChange={handleChange}
-            />
-            <input
-                type="text"
-                name="three"
-                placeholder="Three.js Scene (filename)"
-                value={formData.three}
-                onChange={handleChange}
-            />
-            <button type="submit" disabled={loading}>
-                {loading ? 'Updating...' : 'Update Project'}
-            </button>
+        <div className="backend">
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Title"
+                    value={formData.title}
+                    onChange={handleChange}
+                    required
+                />
+                <textarea
+                    name="content"
+                    placeholder="Content"
+                    value={formData.content}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="text"
+                    name="img"
+                    placeholder="Image URL"
+                    value={formData.img}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="text"
+                    name="date"
+                    placeholder="Date"
+                    value={formData.date}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="text"
+                    name="p5"
+                    placeholder="P5 Sketch (filename)"
+                    value={formData.p5}
+                    onChange={handleChange}
+                />
+                <input
+                    type="text"
+                    name="three"
+                    placeholder="Three.js Scene (filename)"
+                    value={formData.three}
+                    onChange={handleChange}
+                />
+                <button type="submit" disabled={loading}>
+                    {loading ? 'Updating...' : 'Update Project'}
+                </button>
 
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-        </form>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+            </form>
+        </div>
     );
 };
 

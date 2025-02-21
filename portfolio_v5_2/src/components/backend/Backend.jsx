@@ -126,20 +126,23 @@ const Backend = () => {
     }, [projects]);
     
     return (
-        <div className="projectGallery">
+        <div className="backend">
             {loading ? (
                 <p>Loading...</p>
             ) : (
                 <>
+                    <h2>Create New Project</h2>
                     <CreateProjectForm />
                     
                     <div>
                         <h2>Update Existing Projects</h2>
-                        {projects.map((p) => (
-                            <NavLink to={`/backend/update/${p.id}`} key={p.id}>
-                                <div>{p.title}</div>
-                            </NavLink>
-                        ))}
+                            <div className="updateProjectGrid">
+                            {projects.map((p) => (
+                                <NavLink to={`/backend/update/${p.id}`} key={p.id}>
+                                    <div>{p.title}</div>
+                                </NavLink>
+                            ))}
+                            </div>
                     </div>
                 </>
             )}
