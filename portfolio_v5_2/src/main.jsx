@@ -12,6 +12,9 @@ import Project from './components/Project.jsx'
 import About from './components/About.jsx'
 import NotFound from './components/NotFound.jsx'
 
+import Backend from './components/backend/Backend.jsx'
+import UpdateProject from './components/backend/UpdateProject.jsx'
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -29,6 +32,14 @@ const router = createBrowserRouter([
             {
                 path: '/project/:id',
                 element: <Project />,
+            },
+            {
+                path: '/backend',
+                element: <Backend />,
+            },
+            {
+                path: 'backend/update/:id',
+                element: <UpdateProject />,
             }
         ]
     }
