@@ -1,17 +1,6 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { PrismaClient } from "@prisma/client";
 
-/*
-export default function handler(req: VercelRequest, res: VercelResponse) {
-  const projects = [
-    { id: 1, name: "Vite App", description: "A simple Vite project" },
-    { id: 2, name: "Three.js Scene", description: "A cool 3D visualization" },
-    { id: 3, name: "Next.js Portfolio", description: "A personal portfolio" },
-  ];
-
-  return res.status(200).json(projects);
-} */
-
 const prisma = new PrismaClient();
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
